@@ -13,18 +13,21 @@ public class JumpScare : MonoBehaviour
         Ghost.SetActive(false);
     }
 
-    void OnTriggerEnter () {
-        Scream.Play ();
-        Ghost.SetActive(true);
-    }
-
-    void OnTriggerExit () {
-        Ghost.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            Ghost.SetActive(true);
+            Scream.Play();
+        }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Ghost.SetActive(false);
+        }
+    }
+
 }
