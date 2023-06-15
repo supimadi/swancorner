@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     bool grounded;
 
     public Transform orientation;
+    public GameObject currentHitObject;
 
     float horizontalInput;
     float verticalInput;
@@ -40,6 +41,22 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    private void AimRayCaster()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, -Vector3.up, out hit, Mathf.Infinity))
+        {
+            if (hit.distance > 0.8) return; 
+
+            var selectedObject = hit.transform;
+            if (Input.GetMouseButton(0) && selectedObject != null )
+            {
+                Debug.Log("Found an object - distance: " + hit.transform.gameObject.name);
+            }
+        }
+    }
 
     private void Start()
     {
@@ -55,8 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         turn.x += -Input.GetAxis("Mouse X") * sensitivity;
         turn.y += Input.GetAxis("Mouse Y") * sensitivity;
-        transform.localRotation = Quaternion.Euler(turn.y, -turn.x, 0);
-
+        transform.localRotation = Quaternion.Euler(0, -turn.x, -turn.y);
     }
 
     private void Update()
@@ -67,6 +83,7 @@ public class PlayerController : MonoBehaviour
         MyInput();
         SpeedControl();
         MouseMove();
+        AimRayCaster();
 
         // handle drag
         if (grounded)
