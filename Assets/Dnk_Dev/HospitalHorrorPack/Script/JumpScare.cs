@@ -6,6 +6,7 @@ public class JumpScare : MonoBehaviour
 {
 
     public GameObject Ghost;
+    public AudioSource Scream;
 
     void Start()
     {
@@ -13,6 +14,7 @@ public class JumpScare : MonoBehaviour
     }
 
     void OnTriggerEnter () {
+        Scream.Play ();
         Ghost.SetActive(true);
     }
 
