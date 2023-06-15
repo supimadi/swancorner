@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    private int score;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -35,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public Transform orientation;
     public GameObject currentHitObject;
 
+    public TextMeshProUGUI scoreText;
+
     float horizontalInput;
     float verticalInput;
 
@@ -46,16 +52,29 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, Mathf.Infinity))
         {
-            if (hit.distance > 0.8) return; 
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit.distance, Color.cyan);
 
             var selectedObject = hit.transform;
             if (Input.GetMouseButton(0) && selectedObject != null )
             {
-                Debug.Log("Found an object - distance: " + hit.transform.gameObject.name);
+                currentHitObject = selectedObject.gameObject;
+                if (selectedObject.gameObject.tag == "CollAble" && hit.distance < 0.9)
+                {
+                    Debug.Log("Found an object: " + selectedObject.gameObject.tag);
+                    Debug.Log("Found an object - distance: " + hit.distance);
+                    currentHitObject.SetActive(false);
+                    UpdateScore(1);
+                }
             }
         }
+    }
+
+    public void UpdateScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score: " + score;
     }
 
     private void Start()
@@ -64,6 +83,8 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        UpdateScore(0);
 
         readyToJump = true;
     }
