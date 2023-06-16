@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
 
             var selectedObject = hit.transform;
             if (Input.GetMouseButton(0) && selectedObject != null )
+            // if (Gamepad.current.aButton.isPressed && selectedObject != null )
             {
                 currentHitObject = selectedObject.gameObject;
                 if (selectedObject.gameObject.tag == "CollAble" && hit.distance < 0.9)
@@ -120,8 +122,8 @@ public class PlayerController : MonoBehaviour
 
     private void MyInput()
     {
-        horizontalInput = -Input.GetAxisRaw("Vertical");
-        verticalInput = Input.GetAxisRaw("Horizontal");
+        horizontalInput = -Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
