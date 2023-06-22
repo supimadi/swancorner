@@ -14,7 +14,10 @@ akan memperkuat sensasi ketakutan dan meningkatkan tingkat keterlibatan
 pemain.
 
 Link itch.io: 	https://swancorner.itch.io/catch
+
 Link Video
 Demo	    :	https://youtu.be/1heYsY41k7k
+
 Trailer	    :	https://youtu.be/4MlsyK8NRQY
+
 Link Apk    :	https://telkomuniversityofficial-my.sharepoint.com/personal/amirhf_telkomuniversity_ac_id/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Famirhf%5Ftelkomuniversity%5Fac%5Fid%2FDocuments%2FTugas%20Besar%20PPAP%202023%2FD3RPLA%2D45%2D02
